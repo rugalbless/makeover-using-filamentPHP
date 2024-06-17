@@ -26,12 +26,9 @@ class ProfessorResource extends Resource
                 Forms\Components\TextInput::make('nome')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('id_escola')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('turma_id')
-                    ->required()
-                    ->numeric(),
+                Forms\Components\Select::make('turma_id')
+                    ->relationship('turmas', 'nome')
+                    ->nullable(),
             ]);
     }
 
@@ -41,12 +38,11 @@ class ProfessorResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('nome')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('id_escola')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('turma_id')
-                    ->numeric()
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('turmas.nome')
+                    ->label('Turmas')
+                    ->formatStateUsing(function ($state, $record) {
+                        return $record->turmas->pluck('nome')->join(', ');
+                    }),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

@@ -1,5 +1,10 @@
 <?php
 
+
+
+
+declare(strict_types=1);
+
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -20,6 +25,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_admin'
     ];
 
     /**

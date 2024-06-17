@@ -7,25 +7,25 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Escola extends Model
 {
-    use HasFactory;
-
-    protected $fillable =[
+    protected $fillable = [
         'status',
         'inep',
         'endereco',
-        'nome',
+        'nome'
     ];
 
-    public function turmas (){
-        return $this->hasMany(Turma::class, 'escola_id');
+    public function turma():HasMany
+    {
+        return $this->hasMany(Turma::class);
     }
 
-    public function professores()
+    public function professor():HasMany
     {
-        return $this->hasMany(Professor::class, 'escola_id');
+        return $this->hasMany(Professor::class);
     }
 
 }

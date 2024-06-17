@@ -25,13 +25,13 @@ class EscolaResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('status')
                     ->required()
-                    ->maxLength(50),
+                    ->maxLength(255),
                 Forms\Components\TextInput::make('inep')
                     ->required()
-                    ->maxLength(12),
-                Forms\Components\TextInput::make('endereco')
-                    ->required()
                     ->maxLength(255),
+                Forms\Components\Textarea::make('endereco')
+                    ->required()
+                    ->columnSpanFull(),
                 Forms\Components\TextInput::make('nome')
                     ->required()
                     ->maxLength(255),
@@ -45,8 +45,6 @@ class EscolaResource extends Resource
                 Tables\Columns\TextColumn::make('status')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('inep')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('endereco')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('nome')
                     ->searchable(),

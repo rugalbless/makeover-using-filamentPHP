@@ -23,9 +23,8 @@ class TurmaResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('escola_id')
-                    ->required()
-                    ->numeric(),
+                Forms\Components\Select::make('escola_id')
+                    ->relationship('escola', 'id'),
                 Forms\Components\TextInput::make('status')
                     ->required()
                     ->maxLength(255),
@@ -42,7 +41,7 @@ class TurmaResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('escola_id')
+                Tables\Columns\TextColumn::make('escola.id')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('status')

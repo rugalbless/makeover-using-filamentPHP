@@ -6,27 +6,23 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-
-    public function up(): void
+    /**
+     * Run the migrations.
+     */
+    public function up()
     {
         Schema::create('turmas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('escola_id');
+            $table->foreignId('escola_id')->nullable()->constrained()->onDelete('set null');
             $table->string('status');
             $table->string('turno');
             $table->string('nome');
             $table->timestamps();
-
-            $table->foreign('escola_id')->references('id')->on('escolas');
         });
     }
 
-    public function down(): void
+    public function down()
     {
-        Schema::table('turmas', function (Blueprint $table) {
-            $table->dropForeign(['escola_id']);
-        });
-
         Schema::dropIfExists('turmas');
     }
 };

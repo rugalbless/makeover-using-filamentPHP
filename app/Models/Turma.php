@@ -7,24 +7,26 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Turma extends Model
 {
-    use HasFactory;
-
-    protected $fillable =[
-        'id_escola',
+    protected $fillable = [
         'status',
         'turno',
         'nome',
+        'escola_id'
     ];
 
-    public function escola(){
-        return $this->belongsTo(Escola::class, 'id_escola');
+    public function escola(): BelongsTo
+    {
+        return $this->belongsTo(Escola::class);
     }
 
-    public function professores(){
-        return $this->hasMany(Professor::class, 'id_turma');
+    public function professor(): BelongsToMany
+    {
+        return $this->belongsToMany(Professor::class, 'turmas_professors');
     }
 
 }
